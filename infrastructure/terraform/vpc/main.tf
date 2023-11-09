@@ -5,19 +5,22 @@ terraform {
       version = "~> 4.16"
     }
   }
-
   required_version = ">= 1.2.0"
 }
 
 provider "aws" {
-  region  = "us-west-2"
+  region  = "us-east-1"
 }
 
-resource "aws_instance" "app_server_test_demo" {
-  ami           = "ami-830c94e3"
-  instance_type = "t2.micro"
+resource "aws_vpc" "sd_vpc" {
+  cidr_block = "10.0.0.0/0"
 
   tags = {
-    Name = "MyServer"
+    Name = "Stack Dependency VPC"
   }
+}
+
+output "vpcId" {
+  description = "ID of the VPC"
+  value       = aws_vpc.sd_vpc.id
 }
