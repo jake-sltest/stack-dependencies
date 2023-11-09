@@ -1,6 +1,6 @@
 resource "spacelift_stack" "vpc-stack" {
   administrative               = false
-  space_id                     = data.spacelift_current_space.this.id
+  space_id                     = "stack-dependencies-demo"
   branch                       = "main"
   description                  = "This stack creates a VPC"
   name                         = "vpc-stack"
@@ -12,7 +12,7 @@ resource "spacelift_stack" "vpc-stack" {
 
 resource "spacelift_stack" "ec2-stack" {
   administrative               = false
-  space_id                     = data.spacelift_current_space.this.id
+  space_id                     = "stack-dependencies-demo"
   branch                       = "main"
   description                  = "This stack creates an ec2 instanc"
   name                         = "ec2-stack"
@@ -24,7 +24,7 @@ resource "spacelift_stack" "ec2-stack" {
 
 resource "spacelift_stack" "ansible-stack" {
   administrative               = false
-  space_id                     = data.spacelift_current_space.this.id
+  space_id                     = "stack-dependencies-demo"
   branch                       = "main"
   description                  = "This stack configures the deployed ec2 using ansible"
   name                         = "ansible-stack"
