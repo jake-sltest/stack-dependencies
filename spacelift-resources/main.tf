@@ -6,7 +6,7 @@ resource "spacelift_stack" "vpc-stack" {
   name                         = "vpc-stack"
   project_root                 = "/infrastructure/terraform/vpc"
   repository                   = "stack-dependencies"
-  terraform_smart_sanitization = true
+  terraform_smart_sanitization = false
   autodeploy        = true
 }
 
