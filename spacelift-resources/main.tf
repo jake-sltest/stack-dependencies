@@ -49,7 +49,7 @@ resource "spacelift_stack_dependency" "ec2-depends-on-vpc" {
 }
 
 resource "spacelift_stack_dependency_reference" "ec2-vpc-output" {
-  stack_dependency_id = spacelift_stack_dependency.ec2-depends_on_vpc.id
+  stack_dependency_id = spacelift_stack_dependency.ec2-depends-on-vpc.id
   output_name         = "vpcId"
   input_name          = "vpcId"
 }
