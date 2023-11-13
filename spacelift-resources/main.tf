@@ -3,6 +3,7 @@ resource "spacelift_stack" "vpc-stack" {
   space_id                     = "stack-dependencies-demo-01HES50MW0R4XW1AME0BPP8YVY"
   branch                       = "main"
   description                  = "This stack creates a VPC"
+  labels                       = "sd-demo"
   name                         = "vpc-stack"
   project_root                 = "/infrastructure/terraform/vpc"
   repository                   = "stack-dependencies"
@@ -15,6 +16,7 @@ resource "spacelift_stack" "ec2-stack" {
   space_id                     = "stack-dependencies-demo-01HES50MW0R4XW1AME0BPP8YVY"
   branch                       = "main"
   description                  = "This stack creates an ec2 instanc"
+  labels                       = "sd-demo"
   name                         = "ec2-stack"
   project_root                 = "/infrastructure/terraform/instances"
   repository                   = "stack-dependencies"
@@ -27,9 +29,20 @@ resource "spacelift_stack" "ansible-stack" {
   space_id                     = "stack-dependencies-demo-01HES50MW0R4XW1AME0BPP8YVY"
   branch                       = "main"
   description                  = "This stack configures the deployed ec2 using ansible"
+  labels                       = "sd-demo"
   name                         = "ansible-stack"
   project_root                 = "/ansible"
   repository                   = "stack-dependencies"
   terraform_smart_sanitization = true
   autodeploy        = true
+}
+
+resource "spacelift_stack_dependency" "test" {
+  stack_id            = spacelift_stack.ec2-stack.id
+  depends_on_stack_id = spacelift_stack.vpc-stack.id
+}
+
+resource "spacelift_stack_dependency" "test" {
+  stack_id            = spacelift_stack.ansible-stack.id
+  depends_on_stack_id = spacelift_stack.ec2-stack.id
 }
