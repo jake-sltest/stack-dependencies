@@ -37,12 +37,12 @@ resource "spacelift_stack" "ansible-stack" {
   autodeploy        = true
 }
 
-resource "spacelift_stack_dependency" "test" {
+resource "spacelift_stack_dependency" "ec2-depends-on-vpc" {
   stack_id            = spacelift_stack.ec2-stack.id
   depends_on_stack_id = spacelift_stack.vpc-stack.id
 }
 
-resource "spacelift_stack_dependency" "test" {
+resource "spacelift_stack_dependency" "ansible-depends-on-ec2" {
   stack_id            = spacelift_stack.ansible-stack.id
   depends_on_stack_id = spacelift_stack.ec2-stack.id
 }
