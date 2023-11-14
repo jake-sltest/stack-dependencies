@@ -11,11 +11,15 @@ terraform {
 provider "aws" {
   region  = "us-east-1"
 }
+variable "subnetId" {
+  type = string
+
+}
 
 resource "aws_instance" "sd_instance" {
   ami           = "ami-00aec864ef2480e7c"
   instance_type = "t2.micro"
-  subnet_id = ""
+  subnet_id = var.subnetId
 
   tags = {
     Name = "Stack Dependency EC2"
