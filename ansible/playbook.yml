@@ -4,6 +4,11 @@
   vars:
       ec2Id: 
   pre_tasks:
+      - name: wait_for_connection 
+        wait_for_connection:
+          delay: 5
+          timeout: 600
+
       - name: Display output from ec2 Stack
         ansible.builtin.debug:
-        msg: "the output from the ec2 instance is : {{ ec2ID }}"
+          msg: "the output from the ec2 instance is : {{ ec2ID }}"
