@@ -4,19 +4,6 @@
   vars:
       ec2Id: 
   pre_tasks:
-      - name: Display output from ec2 stack
-      ansible.builtin.debug:
-            msg: "the output from the ec2 instance is : {{ ec2ID }}"
-
-  tasks:
-        - name: Display output from ec2 stack
-          ansible.builtin.debug:
-            msg: "the output from the ec2 instance is : {{ ec2ID }}"
-
-        - name: Wait for system to become reachable
-          ansible.builtin.wait_for_connection:
-                timeout: 180
-                
-        - name: Gather facts for the first time
-          ansible.builtin.setup:
-          
+      - name: Display output from ec2 Stack
+        ansible.builtin.debug:
+        msg: "the output from the ec2 instance is : {{ ec2ID }}"
