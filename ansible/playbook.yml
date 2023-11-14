@@ -1,0 +1,14 @@
+- name: will wait till reachable
+  hosts: all
+  gather_facts: false # we just created the EC2 machine, so we want for the machine to become accessible before gathering facts
+  ignore_unreachable: true
+  vars_files:
+        - vars/default.yml
+  tasks:
+        - name: Wait for system to become reachable
+          ansible.builtin.wait_for_connection:
+                timeout: 180
+                
+        - name: Gather facts for the first time
+          ansible.builtin.setup:
+          

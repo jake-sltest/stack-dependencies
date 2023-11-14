@@ -27,6 +27,9 @@ resource "spacelift_stack" "ec2-stack" {
 }
 
 resource "spacelift_stack" "ansible-stack" {
+    ansible {
+        playbook = "playbook.yml"
+    }
   administrative               = false
   space_id                     = "stack-dependencies-demo-01HES50MW0R4XW1AME0BPP8YVY"
   branch                       = "main"
