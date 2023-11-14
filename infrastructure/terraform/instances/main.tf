@@ -13,7 +13,6 @@ provider "aws" {
 }
 
 resource "aws_instance" "sd_instace" {
-  ami           = "ami-830c94e3"
   instance_type = "t2.micro"
   subnet_id = ""
 
