@@ -49,7 +49,7 @@ resource "spacelift_stack_dependency" "ec2-depends-on-vpc" {
 resource "spacelift_stack_dependency_reference" "ec2-vpc-output" {
   stack_dependency_id = spacelift_stack_dependency.ec2-depends-on-vpc.id
   output_name         = "subnetId"
-  input_name          = "subnetId"
+  input_name          = "TF_VAR_subnetId"
 }
 
 resource "spacelift_stack_dependency" "ansible-depends-on-ec2" {
@@ -60,5 +60,5 @@ resource "spacelift_stack_dependency" "ansible-depends-on-ec2" {
 resource "spacelift_stack_dependency_reference" "ansible-ec2-output" {
   stack_dependency_id = spacelift_stack_dependency.ansible-depends-on-ec2.id
   output_name         = "ec2Id"
-  input_name          = "ec2Id"
+  input_name          = "TF_VAR_ec2Id"
 }
