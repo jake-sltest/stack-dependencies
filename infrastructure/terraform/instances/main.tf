@@ -4,13 +4,19 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 4.16"
     }
+    spacelift = {
+      source = "spacelift-io/spacelift"
+    }
   }
   required_version = ">= 1.2.0"
 }
 
 provider "aws" {
   region  = "us-east-1"
+}
 
+
+provider "spacelift" {
 }
 
 variable "subnetId" {
