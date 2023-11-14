@@ -1,6 +1,8 @@
 - name: Stack Dependencies Demo
-  hosts: all
-  gather_facts: false
+  hosts: localhost
+  connection: local
+  become: true
+  gather_facts: no
   vars:
       ec2Id: 
   pre_tasks:
