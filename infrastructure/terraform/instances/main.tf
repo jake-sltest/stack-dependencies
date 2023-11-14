@@ -15,7 +15,7 @@ provider "aws" {
 resource "aws_instance" "sd_instace" {
   ami           = "ami-00aec864ef2480e7c"
   instance_type = "t2.micro"
-  subnet_id = ""
+  subnet_id = 
 
   tags = {
     Name = "Stack Dependency EC2"
