@@ -4,7 +4,7 @@
   become: true
   gather_facts: no
   vars:
-      ec2Id: 
+      ec2Id: ""
   pre_tasks:
       - name: wait_for_connection 
         wait_for_connection:
