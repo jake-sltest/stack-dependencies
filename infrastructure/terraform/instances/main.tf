@@ -13,7 +13,7 @@ provider "aws" {
 }
 variable "subnetId" {
   type = string
-
+  default = ""
 }
 
 resource "aws_instance" "sd_instance" {
