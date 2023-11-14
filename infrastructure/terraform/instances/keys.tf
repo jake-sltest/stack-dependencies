@@ -5,14 +5,8 @@ resource "tls_private_key" "rsa-ansible" {
 }
 
 resource "aws_key_pair" "ansible-key" {
-  key_name   = "tf-ansible-workflow-key-${var.spacelift_stack_id}"
+  key_name   = "tf-ansible-workflow-key-${spacelift_stack.ec2-stack.id}"
   public_key = tls_private_key.rsa-ansible.public_key_openssh
-
-  tags = {
-    Name = "tf-ansible-workflow"
-    SpaceliftStackID = var.spacelift_stack_id
-    Ansible = "true"
-  }
 }
 
 resource "spacelift_mounted_file" "ansible-key" {

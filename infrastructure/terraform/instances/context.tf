@@ -1,7 +1,7 @@
 # Ansible Context  dynamic inventory definition
 resource "spacelift_context" "ansible-context" {
   description = "Context for Terraform-Ansible workflow demo"
-  name        = "Ansible context - ${var.spacelift_stack_id}"
+  name        = "Ansible context - ${spacelift_stack.ec2-stack.id}"
 }
 
 
@@ -15,8 +15,8 @@ resource "spacelift_environment_variable" "ansible_confg_var" {
 data "template_file" "aws_dynamic_inventory" {
   template = "${file("${path.module}/templates/aws_ec2.tpl")}"
   vars = {
-    aws_region = var.aws_region
-    spacelift_stack_id = var.spacelift_stack_id
+    aws_region = "us-east-1"
+    spacelift_stack_id = spacelift_stack.ec2-stack.id
   }
 }
 
