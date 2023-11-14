@@ -34,7 +34,7 @@ resource "aws_instance" "sd_instance" {
   }
 }
 
-resource "spacelift_environment_variable" "ansible_confg_var" {
+/* resource "spacelift_environment_variable" "ansible_confg_var" {
   context_id = spacelift_context.ansible-context.id
   name       = "ANSIBLE_INVENTORY"
   value      = "/mnt/workspace/aws_ec2.yml"
@@ -60,9 +60,9 @@ resource "spacelift_context_attachment" "attachment" {
   context_id = spacelift_context.ansible-context.id
   stack_id   = spacelift_stack.ansible-stack.id
   priority   = 0
-}
+} */
 
 output "ec2Id" {
   description = "ID of the ec2 instance"
-  value       = aws_instance.sd_instance.id
+  value       = "this is the ec2 instance id output: ${aws_instance.sd_instance.id}"
 }
