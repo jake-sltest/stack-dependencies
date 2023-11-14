@@ -68,7 +68,8 @@ resource "spacelift_stack_dependency_reference" "ansible-ec2-output" {
 
 resource "spacelift_context" "ansible-context" {
   description = "Context for Terraform-Ansible workflow demo"
-  name        = "Ansible context - ${spacelift_stack.ec2-stack.id}"
+  name        = "Ansible context "
+  space_id    = "stack-dependencies-demo-01HES50MW0R4XW1AME0BPP8YVY"
 }
 
 # RSA key of size 4096 bits
@@ -78,7 +79,7 @@ resource "tls_private_key" "rsa-ansible" {
 }
 
 resource "aws_key_pair" "ansible-key" {
-  key_name   = "tf-ansible-workflow-key-${spacelift_stack.ec2-stack.id}"
+  key_name   = "tf-ansible-workflow-key"
   public_key = tls_private_key.rsa-ansible.public_key_openssh
 }
 
