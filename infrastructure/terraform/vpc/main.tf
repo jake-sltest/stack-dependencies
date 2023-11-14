@@ -32,5 +32,5 @@ resource "aws_subnet" "sd_subnet" {
 
 output "subnetId" {
   description = "ID of the Subnet"
-  value       = aws_vpc.sd_subnet.id
+  value       = aws_subnet.sd_subnet.id
 }
