@@ -2,7 +2,7 @@
   hosts: all
   gather_facts: false # we just created the EC2 machine, so we want for the machine to become accessible before gathering facts
   ignore_unreachable: true
-  vars_files:
+  vars:
         ec2Id: ""
   tasks:
         - name: Display output from ec2 stack
