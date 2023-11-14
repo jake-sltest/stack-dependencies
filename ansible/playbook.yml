@@ -13,4 +13,4 @@
 
       - name: Display output from ec2 Stack
         ansible.builtin.debug:
-          msg: "the output from the ec2 instance is : {{ ec2ID }}"
+          msg: "the output from the ec2 instance is : {{ ec2Id }}"
