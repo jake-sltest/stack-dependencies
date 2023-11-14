@@ -39,7 +39,17 @@ resource "spacelift_stack" "ansible-stack" {
   autodeploy        = true
 }
 
+resource "spacelift_environment_variable" "subnet_id" {
+  stack_id   = "ec2-stack"
+  name       = "subnetID"
+  value      = ""
+}
 
+resource "spacelift_environment_variable" "ec2_id" {
+  stack_id   = "ansible-stack"
+  name       = "ec2ID"
+  value      = ""
+}
 
 #Create the Stack Dependencys and their respecitive Stack Dependency Rerferences (outputs)
 
@@ -50,8 +60,8 @@ resource "spacelift_stack_dependency" "ec2-depends-on-vpc" {
 
 resource "spacelift_stack_dependency_reference" "ec2-vpc-output" {
   stack_dependency_id = spacelift_stack_dependency.ec2-depends-on-vpc.id
-  output_name         = "vpcId"
-  input_name          = "vpcId"
+  output_name         = "sd_subnet"
+  input_name          = "sd_subnet"
 }
 
 resource "spacelift_stack_dependency" "ansible-depends-on-ec2" {

@@ -20,7 +20,17 @@ resource "aws_vpc" "sd_vpc" {
   }
 }
 
-output "vpcId" {
-  description = "ID of the VPC"
-  value       = aws_vpc.sd_vpc.id
+resource "aws_subnet" "sd_subnet" {
+    vpc_id = aws_vpc.sd_vpc.id
+    cidr_block = "10.0.1.0/24"
+    map_public_ip_on_launch = "true"
+
+    tags = {
+        Name = "Stack Dependency public subnet"
+    }
+}
+
+output "subnetId" {
+  description = "ID of the Subnet"
+  value       = aws_vpc.sd_subnet.id
 }
