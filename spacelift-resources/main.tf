@@ -63,8 +63,10 @@ resource "spacelift_stack_dependency" "ansible-depends-on-ec2" {
 resource "spacelift_stack_dependency_reference" "ansible-ec2-output" {
   stack_dependency_id = spacelift_stack_dependency.ansible-depends-on-ec2.id
   output_name         = "ec2Id"
-  input_name          = "TF_VAR_ec2Id"
+  input_name          = "ec2Id"
 }
+
+#Create ansible context
 
 resource "spacelift_context" "ansible-context" {
   description = "Context for Terraform-Ansible workflow demo"
