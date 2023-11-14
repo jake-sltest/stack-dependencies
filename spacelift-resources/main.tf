@@ -80,7 +80,7 @@ resource "spacelift_environment_variable" "ansible_confg_var" {
 }
 
 data "template_file" "aws_dynamic_inventory" {
-  template = "${file("${path.module}/templates/aws_ec2.tpl")}"
+  template = "${file("/templates/aws_ec2.tpl")}"
   vars = {
     aws_region = "us-east-1"
     spacelift_stack_id = spacelift_stack.ec2-stack.id
