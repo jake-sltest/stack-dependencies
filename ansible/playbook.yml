@@ -11,4 +11,4 @@
 
       - name: Display output from ec2 Stack
         ansible.builtin.debug:
-          msg: "the output from the ec2 instance is : {{ ansible_env.ec2Id }}"
+          msg: "the output from the ec2 instance is : {{(lookup('env','ec2Id'))}}"
