@@ -71,6 +71,7 @@ resource "spacelift_context" "ansible-context" {
   name        = "Ansible context - ${spacelift_stack.ec2-stack.id}"
 }
 
+#Create config for terraform-ansible workflow
 
 resource "spacelift_environment_variable" "ansible_confg_var" {
   context_id = spacelift_context.ansible-context.id
@@ -80,7 +81,7 @@ resource "spacelift_environment_variable" "ansible_confg_var" {
 }
 
 data "template_file" "aws_dynamic_inventory" {
-  template = "${file("${path.module}/infrastructure/terraform/instances/templates/aws_ec2.tpl")}"
+  template = "${file("/stack-dependencies/infrastructure/terraform/instances/templates/aws_ec2.tpl")}"
   vars = {
     aws_region = "us-east-1"
     spacelift_stack_id = spacelift_stack.ec2-stack.id
