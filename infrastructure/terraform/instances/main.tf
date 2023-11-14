@@ -64,5 +64,5 @@ resource "spacelift_context_attachment" "attachment" {
 
 output "ec2Id" {
   description = "ID of the ec2 instance"
-  value       = "this is the ec2 instance id output: ${aws_instance.sd_instance.id}"
+  value       = "SPACELIFT: The ec2 instance id output is: ${aws_instance.sd_instance.id}"
 }
