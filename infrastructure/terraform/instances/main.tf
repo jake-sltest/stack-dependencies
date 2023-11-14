@@ -10,6 +10,7 @@ terraform {
 
 provider "aws" {
   region  = "us-east-1"
+
 }
 
 variable "subnetId" {
@@ -25,6 +26,34 @@ resource "aws_instance" "sd_instance" {
   tags = {
     Name = "Stack Dependency EC2"
   }
+}
+
+resource "spacelift_environment_variable" "ansible_confg_var" {
+  context_id = spacelift_context.ansible-context.id
+  name       = "ANSIBLE_INVENTORY"
+  value      = "/mnt/workspace/aws_ec2.yml"
+  write_only = false
+}
+
+data "template_file" "aws_dynamic_inventory" {
+  template = "${file("${path.module}/templates/aws_ec2.tpl")}"
+  vars = {
+    aws_region = "us-east-1"
+    spacelift_stack_id = spacelift_stack.ec2-stack.id
+  }
+}
+
+resource "spacelift_mounted_file" "aws_inventory" {
+  context_id    = spacelift_context.ansible-context.id
+  relative_path = "aws_ec2.yml"
+  content       = base64encode(data.template_file.aws_dynamic_inventory.rendered)
+  write_only    = false
+}
+
+resource "spacelift_context_attachment" "attachment" {
+  context_id = spacelift_context.ansible-context.id
+  stack_id   = spacelift_stack.ansible-stack.id
+  priority   = 0
 }
 
 output "ec2Id" {
