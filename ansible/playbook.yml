@@ -1,9 +1,13 @@
-- name: will wait till reachable
+- name: Stack Dependencies Demo
   hosts: all
-  gather_facts: false # we just created the EC2 machine, so we want for the machine to become accessible before gathering facts
-  ignore_unreachable: true
+  gather_facts: false
   vars:
-        ec2Id: ""
+      ec2Id: 
+  pre_tasks:
+      - name: Display output from ec2 stack
+      ansible.builtin.debug:
+            msg: "the output from the ec2 instance is : {{ ec2ID }}"
+
   tasks:
         - name: Display output from ec2 stack
           ansible.builtin.debug:
