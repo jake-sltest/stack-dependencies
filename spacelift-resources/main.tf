@@ -24,6 +24,7 @@ resource "spacelift_stack" "ec2-stack" {
   repository                   = "stack-dependencies"
   terraform_smart_sanitization = true
   autodeploy        = true
+  manage_state                 = false
 }
 
 resource "spacelift_stack" "ansible-stack" {
