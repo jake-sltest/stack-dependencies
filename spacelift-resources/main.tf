@@ -47,7 +47,7 @@ data "spacelift_space_by_path" "space" {
 }
 
 output "space_description" {
-  value = data.spacelift_space_by_path.space.stacks
+  value = data.spacelift_space_by_path.space.description
 }
 
 #Create the Stack Dependencys and their respecitive Stack Dependency Rerferences (outputs)
