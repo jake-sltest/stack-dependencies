@@ -80,6 +80,7 @@ resource "spacelift_context" "ansible-context" {
   description = "Context for Terraform-Ansible workflow demo"
   name        = "Ansible context "
   space_id    = "stack-dependencies-demo-01HES50MW0R4XW1AME0BPP8YVY"
+  labels      = ["autoattach:sd-demo"]
 }
 
 # RSA key of size 4096 bits
