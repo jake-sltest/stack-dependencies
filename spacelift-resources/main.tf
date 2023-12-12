@@ -34,7 +34,7 @@ resource "spacelift_stack" "ansible-stack" {
   space_id                     = "stack-dependencies-demo-01HES50MW0R4XW1AME0BPP8YVY"
   branch                       = "main"
   description                  = "This stack configures the deployed ec2 using ansible"
-  labels                       = ["sd-demo"]
+  labels                       = ["sd-demo, infracost"]
   name                         = "ansible-stack"
   project_root                 = "/ansible"
   repository                   = "stack-dependencies"
