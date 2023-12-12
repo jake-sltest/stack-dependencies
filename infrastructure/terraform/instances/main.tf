@@ -30,7 +30,7 @@ resource "aws_instance" "sd_instance" {
   subnet_id = var.subnetId
 
   tags = {
-    Name = "Stack Dependency EC2"
+    Name = "Stack Dependency EC2 change"
   }
 }
 
