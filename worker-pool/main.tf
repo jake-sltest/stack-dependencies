@@ -33,7 +33,6 @@ module "my_workerpool" {
 
 variable "worker_pool_config" {
   type = string
-  sensitive = true
 }
 
 variable "worker_pool_private_key" {
