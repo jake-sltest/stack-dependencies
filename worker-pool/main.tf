@@ -37,6 +37,7 @@ variable "worker_pool_config" {
 
 variable "worker_pool_private_key" {
   type = string
+  sensitive = true
 }
 
 variable "worker_pool_id" {
