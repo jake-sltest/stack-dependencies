@@ -1,3 +1,20 @@
+terraform {
+  required_providers {
+    spacelift = {
+      source  = "spacelift-io/spacelift"
+      version = "1.6.0"
+    }
+    aws = {
+      source  = "hashicorp/aws"
+      version = "5.12.0"
+    }
+  }
+}
+
+provider "aws" {
+  region = "us-east-1"
+}
+
 
 module "my_workerpool" {
   source = "github.com/spacelift-io/terraform-aws-spacelift-workerpool-on-ec2?ref=v2.3.5"
@@ -12,4 +29,24 @@ module "my_workerpool" {
   worker_pool_id    = var.worker_pool_id
   security_groups   = var.worker_pool_security_groups
   vpc_subnets       = var.worker_pool_subnets
+}
+
+variable "worker_pool_config" {
+  type = string
+}
+
+variable "worker_pool_private_key" {
+  type = string
+}
+
+variable "worker_pool_id" {
+  type = string
+}
+
+variable "worker_pool_security_groups" {
+  type = list(string)
+}
+
+variable "worker_pool_subnets" {
+  type = list(string)
 }
