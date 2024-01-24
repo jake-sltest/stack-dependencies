@@ -12,12 +12,6 @@ provider "aws" {
   region  = "us-east-1"
 }
 
-variable "subnetId" {
-  type = string
-  default = ""
-}
-
-
 resource "aws_vpc" "sd_vpc" {
   cidr_block = "10.0.0.0/16"
 
@@ -34,16 +28,6 @@ resource "aws_subnet" "sd_subnet" {
     tags = {
         Name = "Stack Dependency Public Subnet"
     }
-}
-
-resource "aws_instance" "sd_instance" {
-  ami           = "ami-00aec864ef2480e7c"
-  instance_type = "t2.micro"
-  subnet_id = var.subnetId
-
-  tags = {
-    Name = "Stack Dependency EC2 change"
-  }
 }
 
 output "subnetId" {
