@@ -21,7 +21,7 @@ provider "spacelift" {
 
 variable "subnetId" {
   type = string
-  default = ""
+  default = "subnet-06222b16d1f7d8a9e"
 }
 
 resource "aws_instance" "sd_instance" {
