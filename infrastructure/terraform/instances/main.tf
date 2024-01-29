@@ -21,7 +21,7 @@ provider "spacelift" {
 
 variable "subnetId" {
   type = string
-  default = "subnet-06222b16d1f7d8a9e"
+  default = ""
 }
 
 resource "aws_instance" "sd_instance" {
@@ -31,16 +31,6 @@ resource "aws_instance" "sd_instance" {
 
   tags = {
     Name = "Stack Dependency EC2 change"
-  }
-}
-
-resource "aws_instance" "second_instance" {
-  ami           = "ami-00aec864ef2480e7c"
-  instance_type = "t2.micro"
-  subnet_id = var.subnetId
-
-  tags = {
-    Name = "tag test"
   }
 }
 
