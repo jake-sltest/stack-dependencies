@@ -107,10 +107,3 @@ resource "spacelift_mounted_file" "ansible-key" {
   content       = base64encode(nonsensitive(tls_private_key.rsa-ansible.private_key_pem))
   write_only    = true
 }
-
-resource "spacelift_environment_variable" "ansible_private_key_file" {
-  context_id = spacelift_context.ansible-context.id
-  name       = "ANSIBLE_PRIVATE_KEY_FILE"
-  value      = "/mnt/workspace/tf-ansible-key.pem"
-  write_only = false
-}
