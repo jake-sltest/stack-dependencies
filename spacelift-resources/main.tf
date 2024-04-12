@@ -79,13 +79,6 @@ resource "spacelift_context" "ansible-context" {
   labels      = ["autoattach:sd-demo"]
 }
 
-resource "spacelift_context" "autotest-context" {
-  description = "Context to test autoattach"
-  name        = "test context "
-  space_id    = "stack-dependencies-demo-01HES50MW0R4XW1AME0BPP8YVY"
-  labels      = ["autoattach:infracost"]
-}
-
 # RSA key of size 4096 bits
 resource "tls_private_key" "rsa-ansible" {
   algorithm = "RSA"
