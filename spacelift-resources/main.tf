@@ -45,13 +45,6 @@ resource "spacelift_stack" "ansible-stack" {
   autodeploy        = true
 }
 
-data "spacelift_space_by_path" "space" {
-  space_path = "root/stack-dependencies-demo"
-}
-
-output "space_description" {
-  value = data.spacelift_space_by_path.space.description
-}
 
 #Create the Stack Dependencys and their respecitive Stack Dependency Rerferences (outputs)
 
