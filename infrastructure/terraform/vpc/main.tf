@@ -36,7 +36,7 @@ resource "aws_instance" "second_instance" {
   subnet_id = aws_subnet.sd_subnet.id
 
   tags = {
-    Name = "tag test"
+    Name = "tag test two"
   }
 }
 
