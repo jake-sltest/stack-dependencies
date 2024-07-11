@@ -20,17 +20,7 @@ resource "aws_vpc" "sd_vpc" {
   }
 }
 
-resource "aws_subnet" "deminar_subnet_1" {
-    vpc_id = aws_vpc.sd_vpc.id
-    cidr_block = "10.0.0.0/16"
-    map_public_ip_on_launch = "true"
-
-    tags = {
-        deminar = "true"
-    }
-}
-
-resource "aws_subnet" "deminar_subnet_2" {
+resource "aws_subnet" "deminar_subnet" {
     vpc_id = aws_vpc.sd_vpc.id
     cidr_block = "10.0.1.0/24"
     map_public_ip_on_launch = "true"
