@@ -22,7 +22,7 @@ resource "aws_vpc" "sd_vpc" {
 
 resource "aws_subnet" "deminar_subnet_1" {
     vpc_id = aws_vpc.sd_vpc.id
-    cidr_block = "10.0.1.0/16"
+    cidr_block = "10.0.0.0/16"
     map_public_ip_on_launch = "true"
 
     tags = {
@@ -42,5 +42,5 @@ resource "aws_subnet" "deminar_subnet_2" {
 
 output "subnetId" {
   description = "ID of the Subnet"
-  value       = aws_subnet.sd_subnet.id
+  value       = aws_subnet.deminar_subnet_1.id
 }
