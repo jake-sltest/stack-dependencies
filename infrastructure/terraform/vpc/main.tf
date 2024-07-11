@@ -43,7 +43,7 @@ resource "aws_instance" "sd_instance" {
 
 output "subnetId" {
   description = "ID of the Subnet"
-  value       = aws_subnet.deminar_subnet_1.id
+  value       = aws_subnet.deminar_subnet.id
 }
 
 output "ec2Id" {
