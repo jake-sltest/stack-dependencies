@@ -32,5 +32,5 @@ resource "aws_subnet" "deminar_subnet" {
 
 output "subnetId" {
   description = "ID of the Subnet"
-  value       = aws_subnet.deminar_subnet_1.id
+  value       = aws_subnet.deminar_subnet.id
 }
