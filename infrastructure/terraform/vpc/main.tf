@@ -33,7 +33,7 @@ resource "aws_subnet" "deminar_subnet" {
 resource "aws_instance" "sd_instance" {
   ami           = "ami-00aec864ef2480e7c"
   instance_type = "t2.micro"
-  subnet_id = aws_subnet.deminar_subnet_1.id
+  subnet_id = aws_subnet.deminar_subnet.id
 
   tags = {
     Name = "deminar ec2 instance"
