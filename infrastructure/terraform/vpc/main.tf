@@ -12,8 +12,7 @@ provider "aws" {
   region  = "us-east-1"
 }
 
-resource "aws_vpc" "sd_vpc" {
-  cidr_block = "10.0.0.0/16"
+resource "aws_default_vpc" "sd_vpc" {
 
   tags = {
     Name = "Stack Dependency VPC"
