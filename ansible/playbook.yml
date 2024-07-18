@@ -1,55 +1,47 @@
-- name: will wait till reachable
-  hosts: all
-  gather_facts: false # we just created the EC2 machine, so we want for the machine to become accessible before gathering facts
+- hosts: all
+  gather_facts: true
   ignore_unreachable: true
   vars_files:
-        - vars/default.yml
+    - vars/default.yml
   tasks:
-        - name: Wait for system to become reachable
-          ansible.builtin.wait_for_connection:
-                timeout: 180
+    - name: Install Apache packages
+      become: true
+      ansible.builtin.yum:
+        name: httpd
+        state: present
 
-        - name: Gather facts for the first time
-          ansible.builtin.setup:
+    - name: Create document root
+      become: true
+      ansible.builtin.file:
+        state: directory
+        dest: "{{ doc_root }}"
+        mode: 0701
 
-        - name: Install apache packages
-          become: true
-          ansible.builtin.yum:
-                name: httpd
-                state: present
+    - name: Create configuration file
+      become: true
+      ansible.builtin.template:
+        src: spacelift.conf.j2
+        dest: /etc/httpd/conf.d/spacelift.conf
+        mode: 0644
+      notify: Restart server
 
-        - name: "Creating Document root"
-          become: true
-          ansible.builtin.file:
-                state: directory
-                dest: "{{ doc_root }}"
-                mode: 0701
+    - name: Copy web pages
+      become: true
+      ansible.builtin.template:
+        src: index.html.j2
+        dest: "{{ doc_root }}/index.html"
 
-        - name: "Configuration File"
-          become: true
-          ansible.builtin.template:
-                src: "webserver.j2"
-                dest: "/etc/httpd/conf.d/new_conf.conf"
-                mode: 0644
-          notify: "server restart"
-
-        - name: "Copy webpages"
-          become: true
-          ansible.builtin.template:
-                src: "webpage.j2"
-                dest: "{{ doc_root }}/index.html"
-
-        - name: ensure httpd is running
-          become: true
-          ansible.builtin.service:
-                name: httpd
-                state: started
-          ignore_errors: "{{ ansible_check_mode }}"
+    - name: Ensure httpd is running
+      become: true
+      ansible.builtin.service:
+        name: httpd
+        state: started
+      ignore_errors: "{{ ansible_check_mode }}"
 
   handlers:
-        - name: "server restart"
-          become: true
-          ansible.builtin.service:
-                name: "httpd"
-                state: restarted
-          ignore_errors: "{{ ansible_check_mode }}"
+    - name: Restart server
+      become: true
+      ansible.builtin.service:
+        name: httpd
+        state: restarted
+      ignore_errors: "{{ ansible_check_mode }}"
