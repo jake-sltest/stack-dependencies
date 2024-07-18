@@ -8,5 +8,5 @@
         ansible.builtin.debug:
           msg: [
             "ANSIBLE: What is the output from the ec2 stack?",
-            "{{(lookup('env','ec2Id'))}}"
+            "The output is: {{(lookup('env','ec2Id'))}}"
           ]
