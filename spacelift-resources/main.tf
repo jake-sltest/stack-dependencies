@@ -7,7 +7,7 @@ resource "spacelift_stack" "vpc-stack" {
   description                  = "This stack creates a VPC"
   labels                       = ["sd-demo"]
   name                         = "vpc-stack"
-  project_root                 = "/infrastructure/terraform/vpc"
+  project_root                 = "/infrastructure/vpc"
   repository                   = "stack-dependencies"
   enable_local_preview         = true
   terraform_smart_sanitization = false
@@ -21,7 +21,7 @@ resource "spacelift_stack" "ec2-stack" {
   description                  = "This stack creates an ec2 instanc"
   labels                       = ["sd-demo"]
   name                         = "ec2-stack"
-  project_root                 = "/infrastructure/terraform/instances"
+  project_root                 = "/infrastructure/instances"
   repository                   = "stack-dependencies"
   enable_local_preview         = true
   terraform_smart_sanitization = true
