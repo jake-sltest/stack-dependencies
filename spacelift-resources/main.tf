@@ -1,6 +1,6 @@
 #Create the necessary stacks
 
-resource "spacelift_stack" "vpc-stack" {
+resource "spacelift_stack" "01-vpc-stack" {
   administrative               = false
   space_id                     = "stack-dependencies-demo-01HES50MW0R4XW1AME0BPP8YVY"
   branch                       = "main"
@@ -14,7 +14,7 @@ resource "spacelift_stack" "vpc-stack" {
   autodeploy        = true
 }
 
-resource "spacelift_stack" "ec2-stack" {
+resource "spacelift_stack" "02-ec2-stack" {
   administrative               = false
   space_id                     = "stack-dependencies-demo-01HES50MW0R4XW1AME0BPP8YVY"
   branch                       = "main"
@@ -28,7 +28,7 @@ resource "spacelift_stack" "ec2-stack" {
   autodeploy        = true
 }
 
-resource "spacelift_stack" "ansible-stack" {
+resource "spacelift_stack" "03-ansible-stack" {
     ansible {
         playbook = "playbook.yml"
     }
