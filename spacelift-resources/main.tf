@@ -1,12 +1,12 @@
 #Create the necessary stacks
 
-resource "spacelift_stack" "01-vpc-stack" {
+resource "spacelift_stack" "vpc-stack" {
   administrative               = false
   space_id                     = "stack-dependencies-demo-01HES50MW0R4XW1AME0BPP8YVY"
   branch                       = "main"
   description                  = "This stack creates a VPC"
   labels                       = ["sd-demo"]
-  name                         = "vpc-stack"
+  name                         = "01-vpc-stack"
   project_root                 = "/infrastructure/vpc"
   repository                   = "stack-dependencies"
   enable_local_preview         = true
@@ -14,13 +14,13 @@ resource "spacelift_stack" "01-vpc-stack" {
   autodeploy        = true
 }
 
-resource "spacelift_stack" "02-ec2-stack" {
+resource "spacelift_stack" "ec2-stack" {
   administrative               = false
   space_id                     = "stack-dependencies-demo-01HES50MW0R4XW1AME0BPP8YVY"
   branch                       = "main"
   description                  = "This stack creates an ec2 instanc"
   labels                       = ["sd-demo"]
-  name                         = "ec2-stack"
+  name                         = "02-ec2-stack"
   project_root                 = "/infrastructure/instances"
   repository                   = "stack-dependencies"
   enable_local_preview         = true
@@ -28,7 +28,7 @@ resource "spacelift_stack" "02-ec2-stack" {
   autodeploy        = true
 }
 
-resource "spacelift_stack" "03-ansible-stack" {
+resource "spacelift_stack" "ansible-stack" {
     ansible {
         playbook = "playbook.yml"
     }
@@ -37,7 +37,7 @@ resource "spacelift_stack" "03-ansible-stack" {
   branch                       = "main"
   description                  = "This stack configures the deployed ec2 using ansible"
   labels                       = ["sd-demo"]
-  name                         = "ansible-stack"
+  name                         = "03-ansible-stack"
   project_root                 = "/ansible"
   repository                   = "stack-dependencies"
   enable_local_preview         = true
