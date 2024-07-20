@@ -64,11 +64,11 @@ resource "spacelift_stack_dependency" "ansible-depends-on-ec2" {
   depends_on_stack_id = spacelift_stack.ec2-stack.id
 }
 
-# resource "spacelift_stack_dependency_reference" "ansible-ec2-output" {
-#   stack_dependency_id = spacelift_stack_dependency.ansible-depends-on-ec2.id
-#   output_name         = "ec2Id"
-#   input_name          = "ec2Id"
-# }
+resource "spacelift_stack_dependency_reference" "ansible-ec2-output" {
+  stack_dependency_id = spacelift_stack_dependency.ansible-depends-on-ec2.id
+  output_name         = "ec2Id"
+  input_name          = "ec2Id"
+}
 
 # #Create ansible context
 
