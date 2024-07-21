@@ -116,7 +116,7 @@ resource "aws_key_pair" "ansible-key" {
 resource "spacelift_mounted_file" "public_key" {
   context_id    = spacelift_context.ansible-context.id
   relative_path = "id_rsa.pub"
-  content       = aws_key_pair.public_key
+  content       = aws_key_pair.ansible
   write_only    = false
 }
 
