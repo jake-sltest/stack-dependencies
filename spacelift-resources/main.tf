@@ -19,7 +19,7 @@ resource "spacelift_stack" "ec2-stack" {
   space_id                     = "stack-dependencies-demo-01HES50MW0R4XW1AME0BPP8YVY"
   branch                       = "main"
   description                  = "This stack creates an ec2 instanc"
-  labels                       = ["sd-demo", "ec2"]
+  labels                       = ["sd-demo", "ansible"]
   name                         = "02-ec2-stack"
   project_root                 = "/infrastructure/instances"
   repository                   = "stack-dependencies"
