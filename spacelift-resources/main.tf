@@ -36,7 +36,7 @@ resource "spacelift_stack" "ansible-stack" {
   space_id                     = "stack-dependencies-demo-01HES50MW0R4XW1AME0BPP8YVY"
   branch                       = "main"
   description                  = "This stack configures the deployed ec2 using ansible"
-  labels                       = ["sd-demo"]
+  labels                       = ["sd-demo", "ansible"]
   name                         = "03-ansible-stack"
   project_root                 = "/ansible"
   repository                   = "stack-dependencies"
@@ -76,7 +76,7 @@ resource "spacelift_context" "ansible-context" {
   description = "Context for Terraform-Ansible workflow"
   name        = "Ansible context "
   space_id    = "stack-dependencies-demo-01HES50MW0R4XW1AME0BPP8YVY"
-  labels      = ["autoattach:sd-demo"]
+  labels      = ["autoattach:ansible"]
   before_init = [
     "chmod 600 /mnt/workspace/id_rsa",
     "echo [all] > /mnt/workspace/inventory.ini"
