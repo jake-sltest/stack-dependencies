@@ -19,7 +19,7 @@ resource "spacelift_stack" "ec2-stack" {
   space_id                     = "stack-dependencies-demo-01HES50MW0R4XW1AME0BPP8YVY"
   branch                       = "main"
   description                  = "This stack creates an ec2 instanc"
-  labels                       = ["sd-demo"]
+  labels                       = ["sd-demo", "ec2"]
   name                         = "02-ec2-stack"
   project_root                 = "/infrastructure/instances"
   repository                   = "stack-dependencies"
@@ -43,6 +43,10 @@ resource "spacelift_stack" "ansible-stack" {
   enable_local_preview         = true
   terraform_smart_sanitization = true
   autodeploy        = true
+  before_init = [
+    "chmod 600 /mnt/workspace/id_rsa",
+    "echo [all] > /mnt/workspace/inventory.ini"
+  ] 
 }
 
 
@@ -74,36 +78,52 @@ resource "spacelift_stack_dependency_reference" "ansible-ec2-output" {
 
 resource "spacelift_context" "ansible-context" {
   description = "Context for Terraform-Ansible workflow"
-  name        = "Ansible context "
+  name        = "Ansible context"
   space_id    = "stack-dependencies-demo-01HES50MW0R4XW1AME0BPP8YVY"
   labels      = ["autoattach:ansible"]
-  before_init = [
-    "chmod 600 /mnt/workspace/id_rsa",
-    "echo [all] > /mnt/workspace/inventory.ini"
-  ] 
 }
 
-# # RSA key of size 4096 bits
-# resource "tls_private_key" "rsa-ansible" {
-#   algorithm = "RSA"
-#   rsa_bits  = 4096
-# }
+resource "spacelift_environment_variable" "ansible_remote_user" {
+  context_id = spacelift_context.ansible-context.id
+ name = "ANSIBLE_REMOTE_USER"
+ value = "ec2-user" 
+}
 
-# resource "aws_key_pair" "ansible-key" {
-#   key_name   = "tf-ansible-workflow-key"
-#   public_key = tls_private_key.rsa-ansible.public_key_openssh
-# }
+resource "spacelift_environment_variable" "ansible_inventory" {
+  context_id = spacelift_context.ansible-context.id
+ name = "ANSIBLE_INVENTORY"
+ value = "/mnt/workspace/inventory.ini" 
+}
 
-# resource "spacelift_mounted_file" "ansible-key" {
-#   context_id    = spacelift_context.ansible-context.id
-#   relative_path = "tf-ansible-key.pem"
-#   content       = base64encode(nonsensitive(tls_private_key.rsa-ansible.private_key_pem))
-#   write_only    = true
-# }
+# RSA key of size 4096 bits
+resource "tls_private_key" "rsa-ansible" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
 
-# resource "spacelift_environment_variable" "ansible_private_key_file" {
-#   context_id = spacelift_context.ansible-context.id
-#   name       = "ANSIBLE_PRIVATE_KEY_FILE"
-#   value      = "/mnt/workspace/tf-ansible-key.pem"
-#   write_only = false
-# }
+resource "spacelift_mounted_file" "private_key" {
+  context_id    = spacelift_context.ansible-context.id
+  relative_path = "id_rsa"
+  content       = base64encode(nonsensitive(tls_private_key.rsa-ansible.))
+  write_only    = false
+}
+
+resource "aws_key_pair" "ansible-key" {
+  key_name   = "tf-ansible-workflow-key"
+  public_key = tls_private_key.rsa-ansible.public_key_openssh
+}
+
+resource "spacelift_mounted_file" "public_key" {
+  context_id    = spacelift_context.ansible-context.id
+  relative_path = "id_rsa.pub"
+  content       = aws_key_pair.public_key
+  write_only    = false
+}
+
+
+resource "spacelift_environment_variable" "ansible_private_key_file" {
+  context_id = spacelift_context.ansible-context.id
+  name       = "ANSIBLE_PRIVATE_KEY_FILE"
+  value      = "/mnt/workspace/id_rsa"
+  write_only = false
+}
