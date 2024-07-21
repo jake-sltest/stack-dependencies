@@ -71,7 +71,7 @@ resource "spacelift_stack_dependency" "ansible-depends-on-ec2" {
 resource "spacelift_stack_dependency_reference" "ansible-ec2-output" {
   stack_dependency_id = spacelift_stack_dependency.ansible-depends-on-ec2.id
   output_name         = "aws_instance_ip"
-  input_name          = "aws_instance_ip"
+  input_name          = "host"
 }
 
 # #Create ansible context
