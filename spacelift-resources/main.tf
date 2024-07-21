@@ -66,18 +66,22 @@ resource "spacelift_stack_dependency" "ansible-depends-on-ec2" {
 
 resource "spacelift_stack_dependency_reference" "ansible-ec2-output" {
   stack_dependency_id = spacelift_stack_dependency.ansible-depends-on-ec2.id
-  output_name         = "ec2Id"
-  input_name          = "ec2Id"
+  output_name         = "aws_instance_ip"
+  input_name          = "aws_instance_ip"
 }
 
 # #Create ansible context
 
-# resource "spacelift_context" "ansible-context" {
-#   description = "Context for Terraform-Ansible workflow demo"
-#   name        = "Ansible context test "
-#   space_id    = "stack-dependencies-demo-01HES50MW0R4XW1AME0BPP8YVY"
-#   labels      = ["autoattach:sd-demo"]
-# }
+resource "spacelift_context" "ansible-context" {
+  description = "Context for Terraform-Ansible workflow"
+  name        = "Ansible context "
+  space_id    = "stack-dependencies-demo-01HES50MW0R4XW1AME0BPP8YVY"
+  labels      = ["autoattach:sd-demo"]
+  before_init = [
+    "chmod 600 /mnt/workspace/id_rsa",
+    "echo [all] > /mnt/workspace/inventory.ini"
+  ] 
+}
 
 # # RSA key of size 4096 bits
 # resource "tls_private_key" "rsa-ansible" {

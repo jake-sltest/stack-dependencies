@@ -24,17 +24,28 @@ variable "subnetId" {
   default = ""
 }
 
+variable "public_key" {
+  
+}
+
 resource "aws_instance" "sd_instance" {
   ami           = "ami-00aec864ef2480e7c"
   instance_type = "t2.micro"
   subnet_id = var.subnetId
-
+  key_name                    = aws_key_pair.ssh_key.key_name
+  associate_public_ip_address = true
+  
   tags = {
     Name = "Stack Dependency EC2 change"
   }
 }
 
-output "ec2Id" {
-  description = "ID of the ec2 instance"
-  value       = "SPACELIFT: The ec2 instance id output is: ${aws_instance.sd_instance.id}"
+resource "aws_key_pair" "ssh_key" {
+  key_name   = "ec2"
+  public_key = file(var.public_key)
+}
+
+output "aws_instance_ip" {
+  description = "IP of the ec2 instance"
+  value       = aws_instance.sd_instance.public_ip
 }
