@@ -29,8 +29,3 @@ resource "aws_subnet" "sd_subnet" {
         demo = "stack-dependencies change"
     }
 }
-
-output "subnetId" {
-  description = "ID of the Subnet"
-  value       = aws_subnet.sd_subnet.id
-}

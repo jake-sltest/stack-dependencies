@@ -4,9 +4,6 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 4.16"
     }
-    spacelift = {
-      source = "spacelift-io/spacelift"
-    }
   }
   required_version = ">= 1.2.0"
 }
@@ -15,17 +12,9 @@ provider "aws" {
   region  = "us-east-1"
 }
 
-
-provider "spacelift" {
-}
-
-variable "subnetId" {
-  type = string
-  default = ""
-}
-
-variable "public_key" {
-  
+resource "aws_key_pair" "ssh_key" {
+  key_name   = "ec2-key-pair"
+  public_key = file(var.public_key)
 }
 
 resource "aws_instance" "sd_instance" {
@@ -38,14 +27,4 @@ resource "aws_instance" "sd_instance" {
   tags = {
     Name = "Stack Dependency EC2 change"
   }
-}
-
-resource "aws_key_pair" "ssh_key" {
-  key_name   = "ec2"
-  public_key = file(var.public_key)
-}
-
-output "aws_instance_ip" {
-  description = "IP of the ec2 instance"
-  value       = aws_instance.sd_instance.public_ip
 }

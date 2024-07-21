@@ -1,6 +1,6 @@
 ---
 - name: Install htop
-  hosts: all
+  hosts: '{{ host }}'
   become: yes
   tasks:
     - name: Update apt cache
