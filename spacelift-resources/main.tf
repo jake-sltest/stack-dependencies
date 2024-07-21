@@ -104,7 +104,7 @@ resource "tls_private_key" "rsa-ansible" {
 resource "spacelift_mounted_file" "private_key" {
   context_id    = spacelift_context.ansible-context.id
   relative_path = "id_rsa"
-  content       = base64encode(nonsensitive(tls_private_key.rsa-ansible.))
+  content       = base64encode(nonsensitive(tls_private_key.rsa-ansible))
   write_only    = false
 }
 
