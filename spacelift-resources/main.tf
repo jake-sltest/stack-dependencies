@@ -96,7 +96,7 @@ resource "spacelift_environment_variable" "ansible_inventory" {
 }
 
 # RSA key of size 4096 bits
-resource "tls_private_key" "rsa-ansible" {
+resource "tls_private_key" "rsa" {
   algorithm = "RSA"
   rsa_bits  = 4096
 }
@@ -104,19 +104,19 @@ resource "tls_private_key" "rsa-ansible" {
 resource "spacelift_mounted_file" "private_key" {
   context_id    = spacelift_context.ansible-context.id
   relative_path = "id_rsa"
-  content       = base64encode(nonsensitive(tls_private_key.rsa-ansible))
+  content       = base64encode(nonsensitive(tls_private_key.rsa.private_key_pem))
   write_only    = false
 }
 
 resource "aws_key_pair" "ansible-key" {
   key_name   = "tf-ansible-workflow-key"
-  public_key = tls_private_key.rsa-ansible.public_key_openssh
+  public_key = tls_private_key.rsa.public_key_openssh
 }
 
 resource "spacelift_mounted_file" "public_key" {
   context_id    = spacelift_context.ansible-context.id
   relative_path = "id_rsa.pub"
-  content       = aws_key_pair.ansible
+  content       = aws_key_pair.ansible-key.public_key
   write_only    = false
 }
 
