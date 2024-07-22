@@ -1,8 +1,8 @@
 ---
 - name: Install and Configure Nginx
   hosts: all
-  become: yes
   remote_user: ubuntu
+  become: yes
   pre_tasks:
     - name: Set SSH user for Ubuntu systems
       set_fact:
@@ -38,8 +38,7 @@
           </html>
         mode: '0644'
 
-    - name: Ensure Nginx is running and enabled
-      ansible.builtin.service:
-        name: nginx
-        state: started
-        enabled: yes
+    # - name: Ensure Nginx is running and enabled
+    #   ansible.builtin.service:
+    #     name: nginx
+    #     state: started

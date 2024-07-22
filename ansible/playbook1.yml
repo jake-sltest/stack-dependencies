@@ -1,0 +1,42 @@
+---
+- name: Install htop
+  hosts: all
+  remote_user: ubuntu
+  become: yes
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install htop
+      apt:
+        name: htop
+        state: present
+
+    - name: Install Nginx
+      ansible.builtin.yum:
+        name: nginx
+        state: present
+      when: ansible_os_family == "ubuntu"
+      
+    # - name: install nginx
+    #   apt: name=nginx state=latest
+    #   when: ansible_os_family == "ubuntu"
+
+    - name: Create index.html
+      ansible.builtin.copy:
+        dest: /usr/share/nginx/html/index.html
+        content: |
+          <!DOCTYPE html>
+          <html>
+          <head><title>Server Details</title></head>
+          <body>
+          <h1>Served from {{ ansible_hostname }}</h1>
+          </body>
+          </html>
+        mode: '0644'
+
+    - name: Ensure Nginx is running and enabled
+      ansible.builtin.service:
+        name: nginx
+        state: restarted
