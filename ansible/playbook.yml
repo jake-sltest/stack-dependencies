@@ -15,9 +15,9 @@
       when: ansible_os_family == "RedHat"
 
     - name: Pause for 1 minute
-    ansible.builtin.pause:
+      ansible.builtin.pause:
       minutes: 1
-      
+
   tasks:
     - name: Install Nginx
       ansible.builtin.yum:
