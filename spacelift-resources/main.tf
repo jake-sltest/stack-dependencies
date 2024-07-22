@@ -11,7 +11,8 @@ resource "spacelift_stack" "vpc-stack" {
   repository                   = "stack-dependencies"
   enable_local_preview         = true
   terraform_smart_sanitization = false
-  autodeploy        = true
+  autodeploy                   = true
+  terraform_workflow_tool      = "OPEN_TOFU"
 }
 
 resource "spacelift_stack" "ec2-stack" {
@@ -25,7 +26,8 @@ resource "spacelift_stack" "ec2-stack" {
   repository                   = "stack-dependencies"
   enable_local_preview         = true
   terraform_smart_sanitization = true
-  autodeploy        = true
+  autodeploy                   = true
+  terraform_workflow_tool      = "OPEN_TOFU"
 }
 
 resource "spacelift_stack" "ansible-stack" {
@@ -42,7 +44,7 @@ resource "spacelift_stack" "ansible-stack" {
   repository                   = "stack-dependencies"
   enable_local_preview         = true
   terraform_smart_sanitization = true
-  autodeploy        = true
+  autodeploy                   = true
   before_init = [
     "chmod 600 /mnt/workspace/id_rsa",
     "echo [all] > /mnt/workspace/inventory.ini"
