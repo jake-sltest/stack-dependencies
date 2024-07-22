@@ -13,7 +13,11 @@
       set_fact:
         ansible_user: ec2-user
       when: ansible_os_family == "RedHat"
-  
+
+    - name: Pause for 1 minute
+    ansible.builtin.pause:
+      minutes: 1
+      
   tasks:
     - name: Install Nginx
       ansible.builtin.yum:
