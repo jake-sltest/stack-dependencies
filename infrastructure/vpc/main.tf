@@ -26,6 +26,6 @@ resource "aws_subnet" "sd_subnet" {
     map_public_ip_on_launch = "true"
 
     tags = {
-        demo = "stack-dependencies change"
+        demo = "Stack Dependency Subnet"
     }
 }
