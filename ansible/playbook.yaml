@@ -2,6 +2,7 @@
 - name: Install and Configure Nginx
   hosts: all
   become: yes
+  remote_user: ubuntu
   pre_tasks:
     - name: Set SSH user for Ubuntu systems
       set_fact:

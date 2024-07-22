@@ -1,6 +1,7 @@
 ---
 - name: Install htop
   hosts: all
+  remote_user: ubuntu
   become: yes
   tasks:
     - name: Update apt cache
