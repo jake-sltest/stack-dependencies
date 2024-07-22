@@ -37,8 +37,3 @@
           </body>
           </html>
         mode: '0644'
-
-    # - name: Ensure Nginx is running and enabled
-    #   ansible.builtin.service:
-    #     name: nginx
-    #     state: started
