@@ -63,7 +63,7 @@ resource "aws_key_pair" "ssh_key" {
 }
 
 resource "aws_instance" "sd_instance" {
-  ami           = "ami-00aec864ef2480e7c"
+  ami           = "ami-04a81a99f5ec58529"
   instance_type = "t2.micro"
   subnet_id = var.subnetId
   key_name                    = aws_key_pair.ssh_key.key_name
