@@ -12,7 +12,6 @@ resource "spacelift_stack" "vpc-stack" {
   enable_local_preview         = true
   terraform_smart_sanitization = false
   autodeploy                   = true
-  terraform_workflow_tool      = "OPEN_TOFU"
 }
 
 resource "spacelift_stack" "ec2-stack" {
@@ -27,7 +26,6 @@ resource "spacelift_stack" "ec2-stack" {
   enable_local_preview         = true
   terraform_smart_sanitization = true
   autodeploy                   = true
-  terraform_workflow_tool      = "OPEN_TOFU"
 }
 
 resource "spacelift_stack" "ansible-stack" {
