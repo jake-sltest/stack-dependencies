@@ -47,7 +47,7 @@ resource "spacelift_stack" "ansible-stack" {
   autodeploy                   = true
   before_init = [
     "chmod 600 /mnt/workspace/id_rsa",
-    "echo [all] > /mnt/workspace/inventory.ini"
+    "echo $host > /mnt/workspace/inventory.ini"
   ] 
 }
 
