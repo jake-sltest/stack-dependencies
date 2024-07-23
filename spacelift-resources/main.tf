@@ -2,7 +2,7 @@
 
 resource "spacelift_stack" "vpc-stack" {
   administrative               = false
-  space_id                     = "root"
+  space_id                     = "stack-dependencies-demo-01HES50MW0R4XW1AME0BPP8YVY"
   branch                       = "main"
   description                  = "This stack creates a VPC"
   labels                       = ["sd-demo"]
@@ -16,7 +16,7 @@ resource "spacelift_stack" "vpc-stack" {
 
 resource "spacelift_stack" "ec2-stack" {
   administrative               = false
-  space_id                     = "root"
+  space_id                     = "stack-dependencies-demo-01HES50MW0R4XW1AME0BPP8YVY"
   branch                       = "main"
   description                  = "This stack creates an ec2 instanc"
   labels                       = ["sd-demo", "ansible"]
@@ -33,7 +33,7 @@ resource "spacelift_stack" "ansible-stack" {
         playbook = "playbook.yml"
     }
   administrative               = false
-  space_id                     = "root"
+  space_id                     = "stack-dependencies-demo-01HES50MW0R4XW1AME0BPP8YVY"
   branch                       = "main"
   description                  = "This stack configures the deployed ec2 using ansible"
   labels                       = ["sd-demo", "ansible"]
