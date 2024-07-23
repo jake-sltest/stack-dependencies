@@ -2,7 +2,7 @@
 
 resource "spacelift_stack" "vpc-stack" {
   administrative               = false
-  space_id                     = "stack-dependencies-demo-01HES50MW0R4XW1AME0BPP8YVY"
+  space_id                     = "root"
   branch                       = "main"
   description                  = "This stack creates a VPC"
   labels                       = ["sd-demo"]
@@ -16,7 +16,7 @@ resource "spacelift_stack" "vpc-stack" {
 
 resource "spacelift_stack" "ec2-stack" {
   administrative               = false
-  space_id                     = "stack-dependencies-demo-01HES50MW0R4XW1AME0BPP8YVY"
+  space_id                     = "root"
   branch                       = "main"
   description                  = "This stack creates an ec2 instanc"
   labels                       = ["sd-demo", "ansible"]
@@ -33,7 +33,7 @@ resource "spacelift_stack" "ansible-stack" {
         playbook = "playbook.yml"
     }
   administrative               = false
-  space_id                     = "stack-dependencies-demo-01HES50MW0R4XW1AME0BPP8YVY"
+  space_id                     = "root"
   branch                       = "main"
   description                  = "This stack configures the deployed ec2 using ansible"
   labels                       = ["sd-demo", "ansible"]
@@ -85,14 +85,16 @@ resource "spacelift_context" "ansible-context" {
 
 resource "spacelift_environment_variable" "ansible_remote_user" {
   context_id = spacelift_context.ansible-context.id
- name = "ANSIBLE_REMOTE_USER"
- value = "ec2-user" 
+  name = "ANSIBLE_REMOTE_USER"
+  value = "ec2-user" 
+  write_only = false
 }
 
 resource "spacelift_environment_variable" "ansible_inventory" {
   context_id = spacelift_context.ansible-context.id
- name = "ANSIBLE_INVENTORY"
- value = "/mnt/workspace/inventory.ini" 
+  name = "ANSIBLE_INVENTORY"
+  value = "/mnt/workspace/inventory.ini" 
+  write_only = false
 }
 
 # RSA key of size 4096 bits
@@ -105,7 +107,7 @@ resource "spacelift_mounted_file" "private_key" {
   context_id    = spacelift_context.ansible-context.id
   relative_path = "id_rsa"
   content       = base64encode(nonsensitive(tls_private_key.rsa.private_key_pem))
-  write_only    = false
+  write_only    = true
 }
 
 resource "aws_key_pair" "ansible-key" {
@@ -117,7 +119,7 @@ resource "spacelift_mounted_file" "public_key" {
   context_id    = spacelift_context.ansible-context.id
   relative_path = "id_rsa.pub"
   content       = base64encode(aws_key_pair.ansible-key.public_key)
-  write_only    = false
+  write_only    = true
 }
 
 
