@@ -25,7 +25,7 @@
         state: present
       when: ansible_os_family == "RedHat"
       
-    - name: install nginx Debian
+    - name: install Nginx Debian
       apt: name=nginx state=latest
       when: ansible_os_family == "Debian"
 
