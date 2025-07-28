@@ -33,7 +33,7 @@ resource "aws_subnet" "sd_subnet_new" {
 resource "aws_instance" "second_instance" {
   ami           = "ami-00aec864ef2480e7c"
   instance_type = "t2.micro"
-  subnet_id = aws_subnet.sd_subnet.id
+  subnet_id = aws_subnet.sd_subnet_new.id
 
   tags = {
     Name = "tag test two"
