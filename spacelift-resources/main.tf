@@ -65,7 +65,7 @@ resource "spacelift_stack_dependency_reference" "ec2-vpc-subnet-out" {
 
 resource "spacelift_stack_dependency_reference" "ec2-vpc-vpc-out" {
   stack_dependency_id = spacelift_stack_dependency.ec2-depends-on-vpc.id
-  output_name         = "vpcID"
+  output_name         = "vpcId"
   input_name          = "TF_VAR_vpcId"
 }
 
