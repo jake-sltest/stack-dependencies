@@ -29,9 +29,9 @@ resource "spacelift_stack" "ec2-stack" {
 }
 
 resource "spacelift_stack" "ansible-stack" {
-    ansible {
-        playbook = "playbook.yml"
-    }
+  ansible {
+    playbook = "playbook.yml"
+  }
   administrative               = false
   space_id                     = "stack-dependencies-demo-01HES50MW0R4XW1AME0BPP8YVY"
   branch                       = "main"
@@ -46,7 +46,7 @@ resource "spacelift_stack" "ansible-stack" {
   before_init = [
     "chmod 600 /mnt/workspace/id_rsa",
     "echo $host > /mnt/workspace/inventory.ini"
-  ] 
+  ]
 }
 
 
@@ -57,10 +57,16 @@ resource "spacelift_stack_dependency" "ec2-depends-on-vpc" {
   depends_on_stack_id = spacelift_stack.vpc-stack.id
 }
 
-resource "spacelift_stack_dependency_reference" "ec2-vpc-output" {
+resource "spacelift_stack_dependency_reference" "ec2-vpc-subnet-out" {
   stack_dependency_id = spacelift_stack_dependency.ec2-depends-on-vpc.id
   output_name         = "subnetId"
-  input_name          = "TF_VAR_path_subnetId"
+  input_name          = "TF_VAR_subnetId"
+}
+
+resource "spacelift_stack_dependency_reference" "ec2-vpc-vpc-out" {
+  stack_dependency_id = spacelift_stack_dependency.ec2-depends-on-vpc.id
+  output_name         = "subnetId"
+  input_name          = "TF_VAR_subnetId"
 }
 
 resource "spacelift_stack_dependency" "ansible-depends-on-ec2" {
@@ -85,15 +91,15 @@ resource "spacelift_context" "ansible-context" {
 
 resource "spacelift_environment_variable" "ansible_remote_user" {
   context_id = spacelift_context.ansible-context.id
-  name = "ANSIBLE_REMOTE_USER"
-  value = "ec2-user" 
+  name       = "ANSIBLE_REMOTE_USER"
+  value      = "ec2-user"
   write_only = false
 }
 
 resource "spacelift_environment_variable" "ansible_inventory" {
   context_id = spacelift_context.ansible-context.id
-  name = "ANSIBLE_INVENTORY"
-  value = "/mnt/workspace/inventory.ini" 
+  name       = "ANSIBLE_INVENTORY"
+  value      = "/mnt/workspace/inventory.ini"
   write_only = false
 }
 

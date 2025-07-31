@@ -1,5 +1,10 @@
 variable "subnetId" {
-  type = string
+  type    = string
+  default = ""
+}
+
+variable "vpcId" {
+  type    = string
   default = ""
 }
 

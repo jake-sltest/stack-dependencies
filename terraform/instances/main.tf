@@ -1,6 +1,8 @@
 resource "aws_security_group" "allow_access" {
   name        = "stack-dependency-demo"
   description = "Allow SSH, HTTP and HTTPS traffic"
+  vpc_id      = var.vpcId
+
   ingress {
     description = "SSH"
     from_port   = 22
@@ -23,7 +25,7 @@ resource "aws_security_group" "allow_access" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  
+
   ingress {
     description = "HTTP"
     from_port   = 8000
@@ -49,12 +51,12 @@ resource "aws_key_pair" "ssh_key" {
 }
 
 resource "aws_instance" "sd_instance" {
-  ami           = "ami-04a81a99f5ec58529"
-  instance_type = "t2.micro"
-  subnet_id = var.subnetId
+  ami                         = "ami-04a81a99f5ec58529"
+  instance_type               = "t2.micro"
+  subnet_id                   = var.subnetId
   key_name                    = aws_key_pair.ssh_key.key_name
   associate_public_ip_address = true
-  vpc_security_group_ids = [aws_security_group.allow_access.id]
+  vpc_security_group_ids      = [aws_security_group.allow_access.id]
 
   tags = {
     Name = "Stack Dependency EC2"
