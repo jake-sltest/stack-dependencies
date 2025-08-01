@@ -5,5 +5,5 @@ output "subnetId" {
 
 output "vpcId" {
   description = "ID of the Subnet"
-  value       = aws_vpc.sd_vpc.id
+  value       = aws_default_vpc.sd_vpc.id
 }
