@@ -6,7 +6,7 @@ resource "aws_vpc" "sd_vpc" {
 }
 
 resource "aws_subnet" "sd_subnet" {
-  vpc_id                  = aws_default_vpc.sd_vpc.id
+  vpc_id                  = aws_vpc.sd_vpc.id
   map_public_ip_on_launch = "true"
   cidr_block              = "10.0.1.0/24"
 
