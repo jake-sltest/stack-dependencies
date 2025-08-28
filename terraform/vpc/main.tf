@@ -12,6 +12,6 @@ resource "aws_subnet" "sd_subnet" {
 
 
   tags = {
-    demo = "Stack Dependency Subnet"
+    demo = "new tag"
   }
 }
