@@ -46,7 +46,7 @@ resource "aws_security_group" "allow_access" {
 }
 
 resource "aws_security_group" "allow_access_second" {
-  name        = "stack-dependency-demo"
+  name        = "stack-dependency-demo_second"
   description = "Allow SSH, HTTP and HTTPS traffic"
   vpc_id      = var.vpcId
 
