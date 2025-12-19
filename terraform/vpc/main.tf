@@ -16,13 +16,3 @@ resource "aws_subnet" "sd_subnet" {
   }
 }
 
-resource "aws_subnet" "sd_subnet_second" {
-  vpc_id                  = aws_vpc.sd_vpc.id
-  map_public_ip_on_launch = "true"
-  cidr_block              = "10.0.0.0/24"
-
-
-  tags = {
-    demo = "Stack Dependency Subnet"
-  }
-}
