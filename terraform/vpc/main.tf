@@ -11,7 +11,5 @@ resource "aws_subnet" "sd_subnet" {
   cidr_block              = "10.0.1.0/24"
 
 
-  tags = {
-    demo = "Stack Dependency Subnet"
-  }
+
 }
